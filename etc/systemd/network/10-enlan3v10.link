@@ -1,0 +1,12 @@
+# This .link file configures the network interface with a specific MAC address
+#   New device name: enlan3v10
+#   Network type: Virtual Function
+#   Network chipset: 10GbE Intel X710 on MS-01 (left hand size - from back)
+
+[Match]
+# Match the interface based on its MAC address
+MACAddress=3a:57:61:0e:ec:0a
+
+[Link]
+# Rename the interface
+Name=enlan3v10

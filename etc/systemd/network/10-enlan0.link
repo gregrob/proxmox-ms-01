@@ -1,0 +1,13 @@
+# This .link file configures the network interface with a specific MAC address
+#   Original device name: enp87s0
+#   New device name: enlan0
+#   Network type: Physical Function
+#   Network chipset: 2.5GbE Intel I226-LM on MS-01 (right hand size - from back)
+
+[Match]
+# Match the interface based on its MAC address
+MACAddress=58:47:ca:77:08:68
+
+[Link]
+# Rename the interface
+Name=enlan0

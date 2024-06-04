@@ -1,0 +1,9 @@
+[Unit]
+Description=Script to enable and set-up SR-IOV for net devices on boot
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/sriov-net-vfs
+
+[Install]
+WantedBy=multi-user.target

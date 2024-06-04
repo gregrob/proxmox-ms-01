@@ -1,0 +1,73 @@
+#!/bin/bash
+
+# Script to enable and set-up SR-IOV for net devices on boot
+
+# get_net_pcie_slot_name $1 $2
+#   argument $1 is the network device name
+#   argument $2 is the virtual function number
+get_net_pcie_slot_name () {
+  if [ -z "$2" ]
+  then
+    # Get the slot name of the PD (physical device)
+    source /sys/class/net/$1/device/uevent
+
+  else
+    # Get the slot name of the VD (virtual device)
+    source /sys/class/net/$1/device/virtfn${2}/uevent
+
+  fi
+
+  echo $PCI_SLOT_NAME
+}
+
+
+# Specify the first net device to configure here
+NET_DEV_1=enlan3
+
+# Specify the first net device to configure here
+NET_DEV_1_NUMVFS=12
+
+# Specify the driver
+NET_DEV_1_DRV=iavf
+
+
+echo "step 1: disable auto mount"
+echo 0 > /sys/class/net/$NET_DEV_1/device/sriov_drivers_autoprobe
+
+echo "step 2: make sure all virtual functions are deleted"
+echo 0 > /sys/class/net/$NET_DEV_1/device/sriov_numvfs
+
+echo "step 3: create the virtual functions"
+echo $NET_DEV_1_NUMVFS > /sys/class/net/$NET_DEV_1/device/sriov_numvfs
+
+echo "step 4: re-enable auto mount"
+echo 1 > /sys/class/net/$NET_DEV_1/device/sriov_drivers_autoprobe
+
+echo "step 5: set mac addresses (hint: use /etc/systemd/network/*.link to set names)"
+ip link set $NET_DEV_1 vf 0 mac 3a:57:61:0e:ec:00
+ip link set $NET_DEV_1 vf 1 mac 3a:57:61:0e:ec:01
+ip link set $NET_DEV_1 vf 2 mac 3a:57:61:0e:ec:02
+ip link set $NET_DEV_1 vf 3 mac 3a:57:61:0e:ec:03
+ip link set $NET_DEV_1 vf 4 mac 3a:57:61:0e:ec:04
+ip link set $NET_DEV_1 vf 5 mac 3a:57:61:0e:ec:05
+ip link set $NET_DEV_1 vf 6 mac 3a:57:61:0e:ec:06
+ip link set $NET_DEV_1 vf 7 mac 3a:57:61:0e:ec:07
+ip link set $NET_DEV_1 vf 8 mac 3a:57:61:0e:ec:08
+ip link set $NET_DEV_1 vf 9 mac 3a:57:61:0e:ec:09
+ip link set $NET_DEV_1 vf 10 mac 3a:57:61:0e:ec:0a
+ip link set $NET_DEV_1 vf 11 mac 3a:57:61:0e:ec:0b
+
+echo "step 6: set vlans"
+
+echo "step 7: activate drivers for specific interfaces"
+echo $(get_net_pcie_slot_name $NET_DEV_1 10) > /sys/bus/pci/drivers/$NET_DEV_1_DRV/bind
+echo $(get_net_pcie_slot_name $NET_DEV_1 11) > /sys/bus/pci/drivers/$NET_DEV_1_DRV/bind
+
+echo "step 8: rename activated interfaces"
+echo "systemd is used to rename interfaces - refer under /etc/systemd/network/*.link"
+#sleep 10
+#ip link set dev enp2s0f0v1 name ${NET_DEV_1}v1
+
+echo "step 9: setup specific interface vlans"
+ip link set dev ${NET_DEV_1} vf 10 vlan 0
+ip link set dev ${NET_DEV_1} vf 11 vlan 0
