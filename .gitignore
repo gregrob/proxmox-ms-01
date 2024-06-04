@@ -1,3 +1,5 @@
 # Ignore the github token
 github-token.txt
 
+# Ignore the man folder
+man/*
