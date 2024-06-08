@@ -3,3 +3,6 @@ github-token.txt
 
 # Ignore the man folder
 man
+
+# Ignore the password file for postfix
+etc/postfix/sasl_passwd
