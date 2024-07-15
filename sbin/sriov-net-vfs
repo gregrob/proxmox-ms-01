@@ -87,7 +87,7 @@ ip link set dev ${NET_DEV_1} vf 6 vlan 4 # docker-001 network interface - fix ad
 ip link set dev ${NET_DEV_1} vf 7 vlan 0 # docker-001 - nas interface - leave as dhcp for now
 ip link set dev ${NET_DEV_1} vf 8 vlan 2 # proxmox-backup-server - trusted network interface - fix address
 ip link set dev ${NET_DEV_1} vf 9 vlan 0 # proxmox-backup-server - nas interface - leave as dhcp for now
-ip link set dev ${NET_DEV_1} vf 10 vlan 10
+ip link set dev ${NET_DEV_1} vf 10 vlan 0
 ip link set dev ${NET_DEV_1} vf 11 vlan 0
 
 echo "step 7: activate drivers for specific interfaces"
