@@ -1,0 +1,9 @@
+# <file system> <mount point> <type> <options> <dump> <pass>
+proc /proc proc defaults 0 0
+
+# lxc mounts
+//192.168.1.25/media         /mnt/lxc_shares/flashstor/media         cifs _netdev,vers=3.0,x-systemd.automount,x-systemd.device-timeout=10,noatime,noauto,credentials=/usr/local/etc/samba/.smbcreds,uid=100000,gid=110000,dir_mode=0770,file_mode=0770 0 0
+//192.168.1.25/photo-library /mnt/lxc_shares/flashstor/photo-library cifs _netdev,vers=3.0,x-systemd.automount,x-systemd.device-timeout=10,noatime,noauto,credentials=/usr/local/etc/samba/.smbcreds,uid=100000,gid=110000,dir_mode=0770,file_mode=0770 0 0
+//192.168.1.25/video         /mnt/lxc_shares/flashstor/video         cifs _netdev,vers=3.0,x-systemd.automount,x-systemd.device-timeout=10,noatime,noauto,credentials=/usr/local/etc/samba/.smbcreds,uid=100000,gid=110000,dir_mode=0770,file_mode=0770 0 0
+//192.168.1.25/server-mounts /mnt/lxc_shares/flashstor/server-mounts cifs _netdev,vers=3.0,x-systemd.automount,x-systemd.device-timeout=10,noatime,noauto,credentials=/usr/local/etc/samba/.smbcreds,uid=100000,gid=110000,dir_mode=0770,file_mode=0770 0 0
+//192.168.1.25/downloads     /mnt/lxc_shares/flashstor/downloads     cifs _netdev,vers=3.0,x-systemd.automount,x-systemd.device-timeout=10,noatime,noauto,credentials=/usr/local/etc/samba/.smbcreds,uid=100000,gid=110000,dir_mode=0770,file_mode=0770 0 0
