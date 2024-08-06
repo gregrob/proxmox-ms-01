@@ -83,7 +83,9 @@ ip link set dev ${NET_DEV_0} vf 10 vlan 0
 ip link set dev ${NET_DEV_0} vf 11 vlan 0
 
 # do not use vf0
-ip link set dev ${NET_DEV_1} vf 3 vlan 2 # infisical 10GbE access to 10.24.2.0/24 (vf1@enlan3, trusted)
+ip link set dev ${NET_DEV_1} vf 1 vlan 0 # frigate 10GbE access to 192.168.1.0/24 (vf1@enlan3, home network)
+ip link set dev ${NET_DEV_1} vf 2 vlan 4 # frigate 10GbE access to 10.24.4.0/24 (vf2@enlan3, default)
+ip link set dev ${NET_DEV_1} vf 3 vlan 2 # infisical 10GbE access to 10.24.2.0/24 (vf3@enlan3, trusted)
 ip link set dev ${NET_DEV_1} vf 4 vlan 0 # jellyfin 10GbE access to 192.168.1.0/24 (vf4@enlan3, home network)
 ip link set dev ${NET_DEV_1} vf 5 vlan 4 # jellyfin 10GbE access to 10.24.4.0/24 (vf5@enlan3, default)
 ip link set dev ${NET_DEV_1} vf 6 vlan 4 # hosting-010 network interface - fix address
@@ -97,6 +99,8 @@ echo "step 7: activate drivers for specific interfaces"
 echo $(get_net_pcie_slot_name $NET_DEV_0 10) > /sys/bus/pci/drivers/$NET_DEV_0_DRV/bind
 echo $(get_net_pcie_slot_name $NET_DEV_0 11) > /sys/bus/pci/drivers/$NET_DEV_0_DRV/bind
 
+echo $(get_net_pcie_slot_name $NET_DEV_1 1) > /sys/bus/pci/drivers/$NET_DEV_1_DRV/bind
+echo $(get_net_pcie_slot_name $NET_DEV_1 2) > /sys/bus/pci/drivers/$NET_DEV_1_DRV/bind
 echo $(get_net_pcie_slot_name $NET_DEV_1 3) > /sys/bus/pci/drivers/$NET_DEV_1_DRV/bind
 echo $(get_net_pcie_slot_name $NET_DEV_1 4) > /sys/bus/pci/drivers/$NET_DEV_1_DRV/bind
 echo $(get_net_pcie_slot_name $NET_DEV_1 5) > /sys/bus/pci/drivers/$NET_DEV_1_DRV/bind
