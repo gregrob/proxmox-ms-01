@@ -40,6 +40,7 @@ copy_configurations_proxmox () {
     copy_file etc/pve/qemu-server/200.conf
     copy_file etc/pve/qemu-server/201.conf
     copy_file etc/pve/qemu-server/210.conf
+    copy_file etc/pve/qemu-server/301.conf
 }
 
 # Copy Samba Configurations
